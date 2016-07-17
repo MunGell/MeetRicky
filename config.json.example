@@ -1,0 +1,7 @@
+{
+    "user": "ricky_bot",
+    "name": "Ricky",
+    "token": "slack-token",
+    "loglevel": "errors",
+    "wit_token": "wit-token"
+}
