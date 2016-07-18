@@ -34,7 +34,16 @@ const actions = {
 const wit = new Wit({accessToken: config.wit_token, actions});
 
 bot.on('message', function (data) {
-    if (data.hasOwnProperty('channel') && data.hasOwnProperty('text') && !data.hasOwnProperty('bot_id')) {
+    if (data.hasOwnProperty('channel')
+        && data.hasOwnProperty('text')
+        && !data.hasOwnProperty('bot_id')
+        && isBotMentioned(bot, data.text)
+    ) {
         wit.runActions(data.channel, data.text, {});
     }
 });
+
+function isBotMentioned(bot, message) {
+    let botName = '<@' + bot.self.id + '>';
+    return message.indexOf(botName) !== -1;
+}
