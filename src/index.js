@@ -39,11 +39,19 @@ bot.on('message', function (data) {
         && !data.hasOwnProperty('bot_id')
         && isBotMentioned(bot, data.text)
     ) {
-        wit.runActions(data.channel, data.text, {});
+        wit.runActions(data.channel, clearMentions(getBotMention(bot), data.text), {});
     }
 });
 
+function getBotMention(bot) {
+    return '<@' + bot.self.id + '>';
+}
+
 function isBotMentioned(bot, message) {
-    let botName = '<@' + bot.self.id + '>';
+    let botName = getBotMention(bot);
     return message.indexOf(botName) !== -1;
+}
+
+function clearMentions(mention, message) {
+    return message.replace(new RegExp(mention), '');
 }
